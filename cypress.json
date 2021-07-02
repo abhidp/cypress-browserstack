@@ -1,1 +1,1 @@
-{ "baseUrl": "https://example.cypress.io", "retries": 2 }
+{ "baseUrl": "https://web.edapp.com", "retries": 2, "watchForFileChanges": false }
