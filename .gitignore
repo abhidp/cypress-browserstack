@@ -1,7 +1,9 @@
 node_modules
-browserstack.json
+
 log
 log/*
 
 results
 results/*
+
+.env
