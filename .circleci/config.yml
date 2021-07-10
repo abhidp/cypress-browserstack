@@ -1,0 +1,25 @@
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
+
+workflows:
+  version: 2
+  e2e-tests:
+    jobs:
+      - cypress/run:
+          executor: cypress/browsers-chrome77
+          name: e2e-tests
+          yarn: true
+          cache-key: 'yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}'
+          install-command: yarn install --production --frozen-lockfile
+          verify-command: yarn cypress verify
+          post-install:
+            - run: yarn cypress cache list
+            - save_cache:
+                key: v1-deps-{{ checksum "yarn.lock" }}
+                paths:
+                  - ~/.cache
+          parallelism: 2
+          record: true
+          group: 'all-tests-staging'
+          command: yarn cy:run --record --key $CYPRESS_RECORD_KEY

@@ -1,2 +1,8 @@
-{ "baseUrl": "https://web.edapp.com", "retries": 2, "watchForFileChanges": false, "video": false }
-
+{
+  "baseUrl": "https://web.edapp.com",
+  "retries": 0,
+  "watchForFileChanges": false,
+  "video": false,
+  "projectId": "zas8fq",
+  "record": true
+}

@@ -15,7 +15,7 @@
     "cypress_version": "7",
     "project_name": "My sandbox project",
     "build_name": "Build no. 1",
-    "parallels": "1",
+    "parallels": "10",
     "npm_dependencies": {
       "typescript": "^4.3.5"
     }
