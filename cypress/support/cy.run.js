@@ -40,13 +40,14 @@ const cypressRun = async (runOptions) => {
 
         if (failedSpecs.length) {
           retryCount--
-          let retryNo = retryInstance - retryCount
-          console.log('retry===', `${tag}-retry#${retryNo}`, runOptions)
-
-          runOptions.config.testFiles = failedSpecs
-          runOptions.config.tag = `${runOptions.config.tag}-retry-#${retryNo}`
 
           if (retryCount) {
+            let retryNo = retryInstance - retryCount
+            runOptions.tag = `${runOptions.tag}-retry-#${retryNo}`
+            runOptions.config.testFiles = failedSpecs
+
+            console.log('retry===', `${tag}-retry#${retryNo}`, runOptions)
+
             _.delay(cypressRun, 1000, runOptions)
           }
         }
