@@ -5,8 +5,10 @@ const cypress = require('cypress')
 const _ = require('lodash')
 
 const tag = 'retry-run'
+let record
 
 let runOptions = {
+  tag,
   quiet: true,
   config: {}
 }
@@ -14,7 +16,7 @@ let retryCount = 3
 const retryInstance = retryCount
 
 const cypressRun = async (runOptions) => {
-  process.env.CI ? ((runOptions.record = true), (runOptions.tag = tag)) : (runOptions.record = false)
+  process.env.CI ? (runOptions.record = true) : (runOptions.record = false)
 
   const cyRun = async (runOptions) => {
     await cypress
