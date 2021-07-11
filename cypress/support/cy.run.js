@@ -43,8 +43,9 @@ const cypressRun = async (runOptions) => {
 
           if (retryCount) {
             let retryNo = retryInstance - retryCount
-            runOptions.tag = `${tag}-retry-#${retryNo}`
+            runOptions.tag = `${tag}-${process.env.CIRCLE_NODE_INDEX}-retry-#${retryNo}`
             runOptions.config.testFiles = failedSpecs
+            runOptions.parallel = false
 
             console.log('retry===', `${tag}-retry#${retryNo}`, runOptions)
 
