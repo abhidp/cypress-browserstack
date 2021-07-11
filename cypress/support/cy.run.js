@@ -12,6 +12,8 @@ let options = {
 let retryCount = 3
 
 const runCypress = async (options) => {
+  process.env.CI ? (options.record = true) : (options.record = false)
+
   const cyRun = async (options) => {
     await cypress
       .run(options)
@@ -37,12 +39,10 @@ const runCypress = async (options) => {
         retryCount--
         console.log('retry===', retryCount, options)
         if (retryCount) {
-          // _.delay().runCypress(options)
           _.delay(runCypress, 50000, options)
         }
 
         process.exitCode = exitCode
-        // }
       })
       .catch((err) => {
         console.error(err.message)
