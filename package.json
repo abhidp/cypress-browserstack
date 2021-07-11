@@ -6,8 +6,7 @@
   "scripts": {
     "cy:open": "export CYPRESS_NAME=abhi && npx cypress open",
     "bs:run": "export CYPRESS_NAME=abhi && browserstack-cypress run --sync",
-    "cy:run": "export CYPRESS_NAME=abhi && node cypress/support/cy.run.js",
-    "cy:run:ci": "export CYPRESS_NAME=abhi && node cypress/support/cy.run.js --record"
+    "cy:run": "export CYPRESS_NAME=abhi && node cypress/support/cy.run.js"
   },
   "keywords": [],
   "author": "",

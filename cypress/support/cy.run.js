@@ -4,18 +4,21 @@
 const cypress = require('cypress')
 const _ = require('lodash')
 
-let options = {
+const tag = 'retry-run'
+
+let runOptions = {
   quiet: true,
   config: {}
 }
 let retryCount = 3
+const retryInstance = retryCount
 
-const runCypress = async (options) => {
-  process.env.CI ? ((options.record = true), (options.tag = 'retry-run')) : (options.record = false)
+const cypressRun = async (runOptions) => {
+  process.env.CI ? ((runOptions.record = true), (runOptions.tag = tag)) : (runOptions.record = false)
 
-  const cyRun = async (options) => {
+  const cyRun = async (runOptions) => {
     await cypress
-      .run(options)
+      .run(runOptions)
       .then((result) => {
         let exitCode = 0
         let failedSpecs = []
@@ -33,12 +36,17 @@ const runCypress = async (options) => {
             }
           }
 
-        options.config.testFiles = failedSpecs
+        if (failedSpecs.length) {
+          retryCount--
+          let retryNo = retryInstance - retryCount
+          console.log('retry===', `${tag}-retry#${retryNo}`, runOptions)
 
-        retryCount--
-        console.log('retry===', retryCount, options)
-        if (retryCount) {
-          _.delay(runCypress, 50000, options)
+          runOptions.config.testFiles = failedSpecs
+          runOptions.config.tag = `${runrunOptions.config.tag}-retry-#${retryNo}`
+
+          if (retryCount) {
+            _.delay(cypressRun, 1000, runOptions)
+          }
         }
 
         process.exitCode = exitCode
@@ -48,7 +56,7 @@ const runCypress = async (options) => {
         process.exit(1)
       })
   }
-  cyRun(options)
+  cyRun(runOptions)
 }
 
-runCypress(options)
+cypressRun(runOptions)
