@@ -6,13 +6,12 @@ const _ = require('lodash')
 
 let options = {
   quiet: true,
-  tag: 'retry-run',
   config: {}
 }
 let retryCount = 3
 
 const runCypress = async (options) => {
-  process.env.CI ? (options.record = true) : (options.record = false)
+  process.env.CI ? ((options.record = true), (options.tag = 'retry-run')) : (options.record = false)
 
   const cyRun = async (options) => {
     await cypress
