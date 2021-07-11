@@ -22,4 +22,4 @@ workflows:
           parallelism: 1
           record: true
           group: 'all-tests-staging'
-          command: yarn cy:run --record --key $CYPRESS_RECORD_KEY
+          command: npx cypress-repeat run -n 3 --until-passes -- quiet --record --key $CYPRESS_RECORD_KEY
