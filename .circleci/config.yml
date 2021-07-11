@@ -19,7 +19,7 @@ workflows:
                 key: v1-deps-{{ checksum "yarn.lock" }}
                 paths:
                   - ~/.cache
-          parallelism: 2
+          parallelism: 1
           record: true
           group: 'all-tests-staging'
           command: yarn cy:run --record --key $CYPRESS_RECORD_KEY
